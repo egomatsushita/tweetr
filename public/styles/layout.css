@@ -24,3 +24,9 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+ .container {
+  width: 450px;
+  margin: 140px auto;
+  background: #ffffff;
+ }
