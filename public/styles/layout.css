@@ -84,7 +84,7 @@ article.tweet footer .mini-logo{
   display: none;
 }
 
-article.tweet footer:hover .mini-logo{
+article.tweet:hover .mini-logo{
   display: block;
 }
 
