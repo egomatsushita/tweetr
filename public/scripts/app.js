@@ -69,6 +69,12 @@ $(document).ready(function() {
 
   function createTweetElement(tweetData) {
 
+    let today = new Date();
+    let post_date = new Date(tweetData.created_at);
+    let day_in_miliseconds = 8.64e+7;
+    let days_past = today.getTime() - post_date.getTime();
+    days_past /= day_in_miliseconds;
+
     let $tweet = $("<article>").addClass("tweet");
     let $header = $("<header>");
     let $img = $("<img>").addClass("logo").attr('src', tweetData.user.avatars.small);
@@ -84,15 +90,12 @@ $(document).ready(function() {
     $div.append($p1);
     $tweet.append($div);
 
-    let $p2 = $("<p>").text("10 days ago");
+    let $p2 = $("<p>").text(`${Math.floor(days_past)} days ago`);
     let $footer = $("<footer>");
     let $icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
     let $icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
     let $icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
 
-    // let $img1 = $("<i>").addClass("fa fa-flag");
-    // let $img2 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
-    // let $img3 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
     $footer.append($p2);
     $footer.append($icon1);
     $footer.append($icon2);
