@@ -86,13 +86,17 @@ $(document).ready(function() {
 
     let $p2 = $("<p>").text("10 days ago");
     let $footer = $("<footer>");
-    let $img1 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
-    let $img2 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
-    let $img3 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
+    let $icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
+    let $icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
+    let $icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
+
+    // let $img1 = $("<i>").addClass("fa fa-flag");
+    // let $img2 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
+    // let $img3 = $("<img>").addClass("mini-logo").attr('src', '../images/bird.png');
     $footer.append($p2);
-    $footer.append($img1);
-    $footer.append($img2);
-    $footer.append($img3);
+    $footer.append($icon1);
+    $footer.append($icon2);
+    $footer.append($icon3);
     $tweet.append($footer);
 
     return $tweet;
