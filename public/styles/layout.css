@@ -25,9 +25,68 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
- .container {
+.container {
   width: 450px;
   margin: 0px auto;
   padding: 140px 2em;
   background: #ffffff;
- }
+}
+
+article.tweet {
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+article.tweet .logo {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  float: left;
+}
+
+article.tweet header {
+  background: #eeeeee;
+  height: 80px;
+}
+
+article.tweet header p {
+  float: left;
+  font-size: x-large;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+article.tweet header span {
+  float: right;
+  margin: 25px 10px;
+}
+
+article.tweet .content {
+  padding: 10px;
+}
+
+article.tweet footer {
+  border-top: 1px solid black;
+  height: 40px;
+}
+
+article.tweet footer p {
+  margin: 10px;
+  float: left;
+}
+
+article.tweet footer .mini-logo{
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  float: right;
+  display: none;
+}
+
+article.tweet footer:hover .mini-logo{
+  display: block;
+}
+
+
+
