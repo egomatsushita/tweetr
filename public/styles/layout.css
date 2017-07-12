@@ -32,6 +32,12 @@ body {
   background: #ffffff;
 }
 
+.new-tweet form p {
+  color: red;
+  text-align: center;
+  margin: 5px 0px 0px 0px;
+}
+
 article.tweet {
   border: 1px solid gray;
   border-radius: 5px;

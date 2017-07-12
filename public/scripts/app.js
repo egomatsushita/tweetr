@@ -117,8 +117,8 @@ $(document).ready(function() {
     event.preventDefault();
 
     let textarea = $(this).find("textarea").val();
-    let $warn_empty_message = $("<p>Cannot leave an empty message!</p>").css({"color": "red", "text-align": "center", "margin": "5px 0px 0px 0px"});
-    let $warn_over_140 = $("<p>Only with up to 140 characters works!</p>").css({"color": "red", "text-align": "center", "margin": "5px 0px 0px 0px"});
+    let $warn_empty_message = $("<p>Cannot leave an empty message!</p>");
+    let $warn_over_140 = $("<p>Only with up to 140 characters works!</p>");
 
     // Remove a previous message if there is one.
     if ($(this).find("p")) {
