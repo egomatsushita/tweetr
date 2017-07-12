@@ -72,6 +72,11 @@ article.tweet .content {
   padding: 10px;
 }
 
+article.tweet .content p {
+  word-wrap: break-word;
+}
+
+
 article.tweet footer {
   border-top: 1px solid black;
   height: 40px;
