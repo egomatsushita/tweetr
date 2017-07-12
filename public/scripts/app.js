@@ -69,37 +69,33 @@ $(document).ready(function() {
 
   function createTweetElement(tweetData) {
 
+    // Setup past time of a post in days
     let today = new Date();
     let post_date = new Date(tweetData.created_at);
     let day_in_miliseconds = 8.64e+7;
     let days_past = today.getTime() - post_date.getTime();
     days_past /= day_in_miliseconds;
 
-    let $tweet = $("<article>").addClass("tweet");
-    let $header = $("<header>");
+    // Setup header
     let $img = $("<img>").addClass("logo").attr('src', tweetData.user.avatars.small);
     let $p = $("<p>").text(tweetData.user.name);
     let $span = $("<span>").text(tweetData.user.handle);
-    $header.append($img);
-    $header.append($p);
-    $header.append($span);
+    let $header = $("<header>").append($img).append($p).append($span);
+    let $tweet = $("<article>").addClass("tweet");
     $tweet.append($header);
 
+    // Setup content
     let $p1 = $("<p>").text(tweetData.content.text);
     let $div = $("<div>").addClass("content");
     $div.append($p1);
     $tweet.append($div);
 
+    // Setup footer
     let $p2 = $("<p>").text(`${Math.floor(days_past)} days ago`);
-    let $footer = $("<footer>");
     let $icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
     let $icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
     let $icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
-
-    $footer.append($p2);
-    $footer.append($icon1);
-    $footer.append($icon2);
-    $footer.append($icon3);
+    let $footer = $("<footer>").append($p2).append($icon1).append($icon2).append($icon3);
     $tweet.append($footer);
 
     return $tweet;
