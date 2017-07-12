@@ -4,7 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-var data = [
+// var data = [
   // {
   //   "user": {
   //     "name": "Newton",
@@ -49,9 +49,10 @@ var data = [
   //   },
   //   "created_at": 1461113796368
   // }
-];
+// ];
 
 function renderTweets(array_of_tweets) {
+  $(".tweet").remove();
 
   let $tweet;
 
@@ -107,40 +108,47 @@ function loadTweets() {
   });
 }
 
+function validateForm(element) {
+  let $this = element;
+  let textarea = $this.find("textarea").val();
+  let $warn_empty_message = $("<p>Cannot leave an empty message!</p>");
+  let $warn_over_140 = $("<p>Only with up to 140 characters works!</p>");
 
+  // Remove a previous message if there is one.
+  if ($this.find("p")) {
+    $this.find("p").remove();
+  }
+
+  // Warn empty and over 140 characters message
+  if (textarea === "") {
+    return $this.append($warn_empty_message);
+  } else if (textarea.length > 140) {
+    return $this.append($warn_over_140);
+  }
+}
 
 
 // When document is ready
 $(document).ready(function() {
 
+  loadTweets();
+
   $(".new-tweet").find("form").on("submit", function(event) {
     event.preventDefault();
+    let element = $(this);
 
-    let textarea = $(this).find("textarea").val();
-    let $warn_empty_message = $("<p>Cannot leave an empty message!</p>");
-    let $warn_over_140 = $("<p>Only with up to 140 characters works!</p>");
+    if(validateForm(element)) {
+      let form = $(event.target);
+      $.ajax({
+        url: form.attr("action"),
+        data: form .serialize(),
+        method: "POST"
+      }).done(function() {
+        loadTweets();
+      });
 
-    // Remove a previous message if there is one.
-    if ($(this).find("p")) {
-      $(this).find("p").remove();
     }
 
-    // Warn empty and over 140 characters message
-    if (textarea === "") {
-      return $(this).append($warn_empty_message);
-    } else if (textarea.length > 140) {
-      return $(this).append($warn_over_140);
-    }
-
-
-    let form = $(event.target);
-    $.ajax({
-      url: form.attr("action"),
-      data: form .serialize(),
-      type: "POST"
-    }).done(function() {
-      loadTweets();
-    });
   });
 
 });
