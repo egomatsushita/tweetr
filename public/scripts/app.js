@@ -133,6 +133,16 @@ $(document).ready(function() {
 
   loadTweets();
 
+  $("#nav-bar").find(".button").on('click', function() {
+    $(".new-tweet").slideToggle();
+    $(".new-tweet").find("textarea").focus();
+    /*if ($(".new-tweet").is(':visible')) {
+      $(".new-tweet").find("textarea").focus();
+    } else {
+      $(".new-tweet").find("textarea").hidden();
+    }*/
+  });
+
   $(".new-tweet").find("form").on("submit", function(event) {
     event.preventDefault();
     let element = $(this);

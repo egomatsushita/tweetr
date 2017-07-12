@@ -22,3 +22,17 @@
   font-size: 2em;
   line-height: 2.5em;
 }
+
+#nav-bar .button {
+  height: 40px;
+  padding: 7px 1em;
+  float: right;
+  margin: 20px;
+  font-size: 1.2em;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #eee;
+  color: #00a087;
+}
+
+
