@@ -5,11 +5,11 @@
  */
 
 function renderTweets(array_of_tweets) {
-  let $tweet;
+  let tweet;
   $(".tweet").remove();
   for (let tweetData of array_of_tweets) {
-    $tweet = createTweetElement(tweetData);
-    $('#tweets-container').prepend($tweet);
+    tweet = createTweetElement(tweetData);
+    $('#tweets-container').prepend(tweet);
   }
   return;
 }
@@ -17,42 +17,42 @@ function renderTweets(array_of_tweets) {
 function createTweetElement(tweetData) {
 
   // Setup past time of a post in days
-  let today = new Date();
-  let post_date = new Date(tweetData.created_at);
-  let day_in_miliseconds = 8.64e+7;
+  const today = new Date();
+  const post_date = new Date(tweetData.created_at);
+  const day_in_miliseconds = 8.64e+7;
   let days_past = today.getTime() - post_date.getTime();
   days_past /= day_in_miliseconds;
 
   // Setup header
-  let $img = $("<img>").addClass("logo").attr('src', tweetData.user.avatars.small);
-  let $p = $("<p>").text(tweetData.user.name);
-  let $span = $("<span>").text(tweetData.user.handle);
-  let $header = $("<header>").append($img).append($p).append($span);
-  let $tweet = $("<article>").addClass("tweet");
-  $tweet.append($header);
+  const img = $("<img>").addClass("logo").attr('src', tweetData.user.avatars.small);
+  const p = $("<p>").text(tweetData.user.name);
+  const span = $("<span>").text(tweetData.user.handle);
+  const header = $("<header>").append(img).append(p).append(span);
+  let tweet = $("<article>").addClass("tweet");
+  tweet.append(header);
 
   // Setup content
-  let $p1 = $("<p>").text(tweetData.content.text);
-  let $div = $("<div>").addClass("content");
-  $div.append($p1);
-  $tweet.append($div);
+  const p1 = $("<p>").text(tweetData.content.text);
+  const div = $("<div>").addClass("content");
+  div.append(p1);
+  tweet.append(div);
 
   // Setup footer
-  let $p2 = $("<p>").text(`${Math.floor(days_past)} days ago`);
-  let $icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
-  let $icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
-  let $icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
-  let $footer = $("<footer>").append($p2).append($icon1).append($icon2).append($icon3);
-  $tweet.append($footer);
+  const p2 = $("<p>").text(`${Math.floor(days_past)} days ago`);
+  const icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
+  const icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
+  const icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
+  const footer = $("<footer>").append(p2).append(icon1).append(icon2).append(icon3);
+  tweet.append(footer);
 
-  return $tweet;
+  return tweet;
 }
 
 function loadTweets() {
   $.ajax({
     url: "/tweets/",
     method: 'GET',
-  }).then(jsonContent => { renderTweets(jsonContent); });
+  }).then((jsonContent) => {renderTweets(jsonContent);});
 }
 
 // When document is ready
@@ -70,8 +70,8 @@ $(document).ready(() => {
     event.preventDefault();
 
     let textarea = $(this).find("textarea");
-    let warn_empty_message = $("<p>Cannot leave an empty message!</p>");
-    let warn_over_140 = $("<p>Works only with up to 140 characters!</p>");
+    const warn_empty_message = $("<p>Cannot leave an empty message!</p>");
+    const warn_over_140 = $("<p>Works only with up to 140 characters!</p>");
 
     // Remove a previous message if there is one.
     if ($(this).find("p")) {
@@ -85,7 +85,7 @@ $(document).ready(() => {
       return $(this).append(warn_over_140);
     }
 
-    let form = $(event.target);
+    const form = $(event.target);
     $.ajax({
       url: form.attr("action"),
       data: form .serialize(),
