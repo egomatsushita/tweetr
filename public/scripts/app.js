@@ -4,63 +4,13 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// var data = [
-  // {
-  //   "user": {
-  //     "name": "Newton",
-  //     "avatars": {
-  //       "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-  //       "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-  //       "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-  //     },
-  //     "handle": "@SirIsaac"
-  //   },
-  //   "content": {
-  //     "text": "If I have seen further it is by standing on the shoulders of giants"
-  //   },
-  //   "created_at": 1461116232227
-  // },
-  // {
-  //   "user": {
-  //     "name": "Descartes",
-  //     "avatars": {
-  //       "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-  //       "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-  //       "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-  //     },
-  //     "handle": "@rd" },
-  //   "content": {
-  //     "text": "Je pense , donc je suis"
-  //   },
-  //   "created_at": 1461113959088
-  // },
-  // {
-  //   "user": {
-  //     "name": "Johann von Goethe",
-  //     "avatars": {
-  //       "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-  //       "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-  //       "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-  //     },
-  //     "handle": "@johann49"
-  //   },
-  //   "content": {
-  //     "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-  //   },
-  //   "created_at": 1461113796368
-  // }
-// ];
-
 function renderTweets(array_of_tweets) {
-  $(".tweet").remove();
-
   let $tweet;
-
+  $(".tweet").remove();
   for (let tweetData of array_of_tweets) {
     $tweet = createTweetElement(tweetData);
     $('#tweets-container').prepend($tweet);
   }
-
   return;
 }
 
@@ -98,67 +48,52 @@ function createTweetElement(tweetData) {
   return $tweet;
 }
 
-
 function loadTweets() {
   $.ajax({
     url: "/tweets/",
     method: 'GET',
-  }).then(function(jsonContent) {
-    renderTweets(jsonContent);
-  });
+  }).then(jsonContent => { renderTweets(jsonContent); });
 }
-
-function validateForm(element) {
-  let $this = element;
-  let textarea = $this.find("textarea").val();
-  let $warn_empty_message = $("<p>Cannot leave an empty message!</p>");
-  let $warn_over_140 = $("<p>Only with up to 140 characters works!</p>");
-
-  // Remove a previous message if there is one.
-  if ($this.find("p")) {
-    $this.find("p").remove();
-  }
-
-  // Warn empty and over 140 characters message
-  if (textarea === "") {
-    return $this.append($warn_empty_message);
-  } else if (textarea.length > 140) {
-    return $this.append($warn_over_140);
-  }
-}
-
 
 // When document is ready
-$(document).ready(function() {
+$(document).ready(() => {
 
   loadTweets();
 
-  $("#nav-bar").find(".button").on('click', function() {
+  $("#nav-bar").find(".button").on('click', () => {
     $(".new-tweet").slideToggle();
     $(".new-tweet").find("textarea").focus();
-    /*if ($(".new-tweet").is(':visible')) {
-      $(".new-tweet").find("textarea").focus();
-    } else {
-      $(".new-tweet").find("textarea").hidden();
-    }*/
   });
 
+  // When user submit the form
   $(".new-tweet").find("form").on("submit", function(event) {
     event.preventDefault();
-    let element = $(this);
 
-    if(validateForm(element)) {
-      let form = $(event.target);
-      $.ajax({
-        url: form.attr("action"),
-        data: form .serialize(),
-        method: "POST"
-      }).done(function() {
-        loadTweets();
-      });
+    let textarea = $(this).find("textarea");
+    let warn_empty_message = $("<p>Cannot leave an empty message!</p>");
+    let warn_over_140 = $("<p>Works only with up to 140 characters!</p>");
 
+    // Remove a previous message if there is one.
+    if ($(this).find("p")) {
+      $(this).find("p").remove();
     }
 
-  });
+    // Warn if there is an empty message or a message that contains over 140 characters
+    if (textarea.val() === "") {
+      return $(this).append(warn_empty_message);
+    } else if (textarea.val().length > 140) {
+      return $(this).append(warn_over_140);
+    }
 
+    let form = $(event.target);
+    $.ajax({
+      url: form.attr("action"),
+      data: form .serialize(),
+      method: "POST"
+    }).done(() => {
+      textarea.val("");
+      $(this).find(".counter").text(140);
+      loadTweets();
+    });
+  });
 });

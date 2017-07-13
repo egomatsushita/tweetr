@@ -1,9 +1,9 @@
+// Document is ready
 $(document).ready(function() {
-
   let counter_start = $(".new-tweet").find(".counter").text();
 
+  // Event start when user is typing in the text area
   $(".new-tweet").on('keyup', "textarea", function() {
-
     let message_length = $(this).val().length;
     let counter = $(this).closest(".new-tweet").find(".counter");
     let counter_length = +counter.text();

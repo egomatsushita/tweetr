@@ -25,6 +25,7 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
+/* Compose tweet area */
 .container {
   width: 450px;
   margin: 0px auto;
@@ -38,6 +39,7 @@ body {
   margin: 5px 0px 0px 0px;
 }
 
+/* Tweet container */
 article.tweet {
   border: 1px solid gray;
   border-radius: 5px;
