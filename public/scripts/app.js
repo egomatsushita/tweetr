@@ -16,7 +16,7 @@ function renderTweets(array_of_tweets) {
 
 function createTweetElement(tweetData) {
 
-  // Setup past time of a post in days
+  // Setup the past time of a post
   const today = new Date();
   const post_date = tweetData.created_at;
   const day_in_miliseconds = 8.64e+7;
@@ -25,6 +25,7 @@ function createTweetElement(tweetData) {
   let time_past = today.getTime() - post_date;
   let time_past_message = "";
 
+  // Display past time message in minutes, days or hours accordingly
   if (time_past < 3.6e+6) {
     time_past /= minute_in_miliseconds;
     time_past_message += `${Math.floor(time_past)} minute(s) ago`;
