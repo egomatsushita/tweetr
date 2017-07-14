@@ -18,10 +18,23 @@ function createTweetElement(tweetData) {
 
   // Setup past time of a post in days
   const today = new Date();
-  const post_date = new Date(tweetData.created_at);
+  const post_date = tweetData.created_at;
   const day_in_miliseconds = 8.64e+7;
-  let days_past = today.getTime() - post_date.getTime();
-  days_past /= day_in_miliseconds;
+  const hour_in_miliseconds = 3.6e+6;
+  const minute_in_miliseconds = 60000;
+  let time_past = today.getTime() - post_date;
+  let time_past_message = "";
+
+  if (time_past < 3.6e+6) {
+    time_past /= minute_in_miliseconds;
+    time_past_message += `${Math.floor(time_past)} minute(s) ago`;
+  } else if (time_past > 8.64e+7) {
+    time_past /= day_in_miliseconds;
+    time_past_message += `${Math.floor(time_past)} day(s) ago`;
+  } else {
+    time_past /= hour_in_miliseconds;
+    time_past_message += `${Math.floor(time_past)} hour(s) ago`;
+  }
 
   // Setup header
   const img = $("<img>").addClass("logo").attr('src', tweetData.user.avatars.small);
@@ -38,7 +51,7 @@ function createTweetElement(tweetData) {
   tweet.append(div);
 
   // Setup footer
-  const p2 = $("<p>").text(`${Math.floor(days_past)} days ago`);
+  const p2 = $("<p>").text(time_past_message);
   const icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
   const icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
   const icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
