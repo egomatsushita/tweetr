@@ -63,3 +63,6 @@ typings/
 
 # Font-awesome
 font-awesome-4.7.0/
+
+# Sass
+.sass-cache/
