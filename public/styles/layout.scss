@@ -3,74 +3,105 @@
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
-html {
-  box-sizing: border-box; }
+$background-color: #eeeeee;
 
+
+html {
+  box-sizing: border-box;
+}
 *, *:before, *:after {
-  box-sizing: inherit; }
+  box-sizing: inherit;
+}
 
 /*
  * Global layout stuff
  */
+
 body {
   margin: 0;
   color: #244751;
-  background-color: #eee;
-  font-family: 'Roboto Condensed', sans-serif; }
+  background-color: $background-color;
+  font-family: 'Roboto Condensed', sans-serif;
+}
 
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
 /* Compose tweet area */
 .container {
   width: 450px;
   margin: 0px auto;
   padding: 140px 2em;
-  background: #ffffff; }
+  background: #ffffff;
+}
 
 .new-tweet form p {
   color: red;
   text-align: center;
-  margin: 5px 0px 0px 0px; }
+  margin: 5px 0px 0px 0px;
+}
 
 /* Tweet container */
 article.tweet {
   border: 1px solid gray;
   border-radius: 5px;
-  margin-top: 20px; }
-  article.tweet .logo {
+  margin-top: 20px;
+
+  .logo {
     width: 60px;
     height: 60px;
     margin: 10px;
-    float: left; }
-  article.tweet header {
-    background: #eeeeee;
-    height: 80px; }
-    article.tweet header p {
+    float: left;
+  }
+
+  header {
+    background: $background-color;
+    height: 80px;
+
+    p {
       float: left;
       font-size: x-large;
       font-weight: bold;
-      margin-top: 15px; }
-    article.tweet header span {
+      margin-top: 15px;
+    }
+
+    span {
       float: right;
-      margin: 25px 10px; }
-  article.tweet .content {
-    padding: 10px; }
-    article.tweet .content article.tweet .content p {
-      word-wrap: break-word; }
-  article.tweet footer {
+      margin: 25px 10px;
+    }
+  }
+
+  .content {
+    padding: 10px;
+
+    article.tweet .content p {
+      word-wrap: break-word;
+    }
+
+  }
+
+  footer {
     border-top: 1px solid black;
-    height: 40px; }
-    article.tweet footer p {
+    height: 40px;
+
+    p {
       margin: 10px;
-      float: left; }
-    article.tweet footer .icon {
+      float: left;
+    }
+
+    .icon{
       width: 20px;
       height: 20px;
       margin: 10px;
       float: right;
-      display: none; }
-  article.tweet:hover .icon {
-    display: block; }
+      display: none;
+    }
+  }
 
-/*# sourceMappingURL=layout.css.map */
+  &:hover .icon{
+    display: block;
+  }
+}
+
+
