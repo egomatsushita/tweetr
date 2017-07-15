@@ -48,7 +48,6 @@ module.exports = function(DataHelpers) {
       id: req.body.id,
       likes: req.body.likes,
       isLiked: req.body.isLiked
-
     }
 
     DataHelpers.updateLikes(data, (err) => {
