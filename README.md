@@ -4,8 +4,13 @@ Tweeter is a simple, single-page Twitter clone with HTML, CSS, JavaScript, jQuer
 
 ## Final Product
 
-!['Screenshot of '](*)
-!['Screenshot of '](*)
+!['Screenshot of main page'](https://github.com/egomatsushita/tweetr/blob/master/docs/main.png?raw=true)
+!['Screenshot of toggling compose'](https://github.com/egomatsushita/tweetr/blob/master/docs/toggle_compose.png?raw=true)
+![!Screenshot of composing tweet](https://github.com/egomatsushita/tweetr/blob/master/docs/composing_tweet.png?raw=true)
+![!Screenshot of empty message](https://github.com/egomatsushita/tweetr/blob/master/docs/empty_msg.png?raw=true)
+![!Screenshot of long message](https://github.com/egomatsushita/tweetr/blob/master/docs/long_msg.png?raw=true)
+![!Screenshot of posted tweet](https://github.com/egomatsushita/tweetr/blob/master/docs/posted_tweet.png?raw=true)
+![!Screenshot of liked tweets](https://github.com/egomatsushita/tweetr/blob/master/docs/liked_msg.png?raw=true)
 
 ## Dependencies
 
