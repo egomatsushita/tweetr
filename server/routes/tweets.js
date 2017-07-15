@@ -47,7 +47,7 @@ module.exports = function(DataHelpers) {
     let data = {
       id: req.body.id,
       likes: req.body.likes,
-      isNotLiked: req.body.isNotLiked
+      isLiked: req.body.isLiked
 
     }
 

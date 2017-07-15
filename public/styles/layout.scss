@@ -29,6 +29,10 @@ body {
  */
 
 /* Compose tweet area */
+.heartLiked {
+  color: blue;
+}
+
 .container {
   width: 450px;
   margin: 0px auto;
@@ -88,6 +92,11 @@ article.tweet {
     p {
       margin: 10px;
       float: left;
+
+      &.likes {
+        color: blue;
+        font-style: italic;
+      }
     }
 
     .icon{

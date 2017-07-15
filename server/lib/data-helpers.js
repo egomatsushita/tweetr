@@ -23,11 +23,11 @@ module.exports = function makeDataHelpers(db) {
     updateLikes: function(tweet, callback) {
       const id = tweet.id;
       const likes = +(tweet.likes);
-      const isNotLiked = tweet.isNotLiked === 'true' ? true : false;
+      const isLiked = tweet.isLiked === 'true' ? true : false;
 
       db.collection("tweets").updateOne(
         { _id: ObjectID(id) },
-        { $set: {"likes": likes, "isNotLiked": isNotLiked} },
+        { $set: {"likes": likes, "isLiked": isLiked} },
         (err, result) => {
           if (err) {
             return callback(err);

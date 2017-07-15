@@ -52,19 +52,28 @@ function createTweetElement(tweetData) {
   tweet.append(div);
 
   // Setup footer
+  const id = tweetData._id;
   const tweets_likes = tweetData.likes;
-  const _id = tweetData._id;
-  const isNotLiked = tweetData.isNotLiked;
+  const isLiked = tweetData.isLiked;
+  let heart;
   const data = {
-    id: _id,
+    id: id,
     likes: tweets_likes,
-    isNotLiked: isNotLiked
+    isLiked: isLiked
   }
+
+  // if tweet is liked heart's color is blue, otherwise default color
+  if (isLiked) {
+    heartLiked = "heartLiked";
+  } else {
+    heartLiked = "";
+  }
+
   const p2 = $("<p>").text(time_past_message);
   const likes = $("<p>").addClass("likes").text(`Likes: ${tweets_likes}`);
   const icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
   const icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
-  const icon3 = $("<span>").addClass("icon heart").data("data", data).append($("<i>").addClass("fa fa-heart"));
+  const icon3 = $("<span>").addClass(`icon heart ${heartLiked}`).data("data", data).append($("<i>").addClass("fa fa-heart"));
   const footer = $("<footer>").append(p2).append(icon1).append(icon2).append(icon3).append(likes);
   tweet.append(footer);
 
@@ -88,14 +97,13 @@ $(document).ready(() => {
     $(".new-tweet").find("textarea").focus();
   });
 
-;
   $("#tweets-container").on("click", ".fa-heart", function() {
     const elem = $(this).closest("footer").find(".heart");
     let _data = elem.data("data");
 
-    if (_data.isNotLiked) {
+    if (!_data.isLiked) {
       _data.likes += 1;
-      _data.isNotLiked = false;
+      _data.isLiked = true;
 
       $.ajax({
         url: "/tweets/likes",
@@ -104,7 +112,7 @@ $(document).ready(() => {
       }).done(() => { loadTweets(); });
     } else {
       _data.likes -= 1;
-      _data.isNotLiked = true;
+      _data.isLiked = false;
 
       $.ajax({
         url: "/tweets/likes",
@@ -112,8 +120,6 @@ $(document).ready(() => {
         data: _data
       }).done(() => { loadTweets(); });
     }
-
-
   });
 
   // When user submit the form

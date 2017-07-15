@@ -22,6 +22,9 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 /* Compose tweet area */
+.heartLiked {
+  color: blue; }
+
 .container {
   width: 450px;
   margin: 0px auto;
@@ -64,6 +67,9 @@ article.tweet {
     article.tweet footer p {
       margin: 10px;
       float: left; }
+      article.tweet footer p.likes {
+        color: blue;
+        font-style: italic; }
     article.tweet footer .icon {
       width: 20px;
       height: 20px;
