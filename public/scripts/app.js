@@ -17,24 +17,24 @@ function renderTweets(array_of_tweets) {
 function createTweetElement(tweetData) {
 
   // Setup the past time of a post
-  const today = new Date();
+  const today = new Date().getTime();
   const post_date = tweetData.created_at;
   const day_in_miliseconds = 8.64e+7;
   const hour_in_miliseconds = 3.6e+6;
   const minute_in_miliseconds = 60000;
-  let time_past = today.getTime() - post_date;
+  let time_past = today - post_date;
   let time_past_message = "";
 
   // Display past time message in minutes, days or hours accordingly
   if (time_past < 3.6e+6) {
     time_past /= minute_in_miliseconds;
-    time_past_message += `${Math.floor(time_past)} minute(s) ago`;
+    time_past_message += `${Math.floor(time_past)} minutes ago`;
   } else if (time_past > 8.64e+7) {
     time_past /= day_in_miliseconds;
-    time_past_message += `${Math.floor(time_past)} day(s) ago`;
+    time_past_message += `${Math.floor(time_past)} days ago`;
   } else {
     time_past /= hour_in_miliseconds;
-    time_past_message += `${Math.floor(time_past)} hour(s) ago`;
+    time_past_message += `${Math.floor(time_past)} hours ago`;
   }
 
   // Setup header
@@ -52,11 +52,20 @@ function createTweetElement(tweetData) {
   tweet.append(div);
 
   // Setup footer
+  const tweets_likes = tweetData.likes;
+  const _id = tweetData._id;
+  const isNotLiked = tweetData.isNotLiked;
+  const data = {
+    id: _id,
+    likes: tweets_likes,
+    isNotLiked: isNotLiked
+  }
   const p2 = $("<p>").text(time_past_message);
+  const likes = $("<p>").addClass("likes").text(`Likes: ${tweets_likes}`);
   const icon1 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-flag"));
   const icon2 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-retweet"));
-  const icon3 = $("<span>").addClass("icon").append($("<i>").addClass("fa fa-heart"));
-  const footer = $("<footer>").append(p2).append(icon1).append(icon2).append(icon3);
+  const icon3 = $("<span>").addClass("icon heart").data("data", data).append($("<i>").addClass("fa fa-heart"));
+  const footer = $("<footer>").append(p2).append(icon1).append(icon2).append(icon3).append(likes);
   tweet.append(footer);
 
   return tweet;
@@ -79,13 +88,41 @@ $(document).ready(() => {
     $(".new-tweet").find("textarea").focus();
   });
 
+;
+  $("#tweets-container").on("click", ".fa-heart", function() {
+    const elem = $(this).closest("footer").find(".heart");
+    let _data = elem.data("data");
+
+    if (_data.isNotLiked) {
+      _data.likes += 1;
+      _data.isNotLiked = false;
+
+      $.ajax({
+        url: "/tweets/likes",
+        method: "PUT",
+        data: _data
+      }).done(() => { loadTweets(); });
+    } else {
+      _data.likes -= 1;
+      _data.isNotLiked = true;
+
+      $.ajax({
+        url: "/tweets/likes",
+        method: "PUT",
+        data: _data
+      }).done(() => { loadTweets(); });
+    }
+
+
+  });
+
   // When user submit the form
   $(".new-tweet").find("form").on("submit", function(event) {
     event.preventDefault();
 
     let textarea = $(this).find("textarea");
-    const warn_empty_message = $("<p>Cannot leave an empty message!</p>");
-    const warn_over_140 = $("<p>Works only with up to 140 characters!</p>");
+    const warn_empty_message = $("<p>Your message is empty!</p>");
+    const warn_over_140 = $("<p>Your message is too long!</p>");
 
     // Remove a previous message if there is one.
     if ($(this).find("p")) {
@@ -102,7 +139,7 @@ $(document).ready(() => {
     const form = $(event.target);
     $.ajax({
       url: form.attr("action"),
-      data: form .serialize(),
+      data: form.serialize(),
       method: "POST"
     }).done(() => {
       textarea.val("");
